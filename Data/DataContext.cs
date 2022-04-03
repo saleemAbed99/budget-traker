@@ -9,5 +9,7 @@ namespace budgetTracker.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) {}
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Budget> Budgets { get; set; }
+        public DbSet<Outgoing> Outgoings { get; set; }
     }
 }

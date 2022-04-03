@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using budgetTracker.Data;
 
 namespace budgetTracker.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220331162855_Budget")]
+    partial class Budget
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,29 +43,6 @@ namespace budgetTracker.Migrations
                         .IsUnique();
 
                     b.ToTable("Budgets");
-                });
-
-            modelBuilder.Entity("budgetTracker.Models.Outgoing", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int?>("BudgetId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Value")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BudgetId");
-
-                    b.ToTable("Outgoings");
                 });
 
             modelBuilder.Entity("budgetTracker.Models.User", b =>
@@ -102,20 +81,6 @@ namespace budgetTracker.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("budgetTracker.Models.Outgoing", b =>
-                {
-                    b.HasOne("budgetTracker.Models.Budget", "Budget")
-                        .WithMany("Outgoings")
-                        .HasForeignKey("BudgetId");
-
-                    b.Navigation("Budget");
-                });
-
-            modelBuilder.Entity("budgetTracker.Models.Budget", b =>
-                {
-                    b.Navigation("Outgoings");
                 });
 
             modelBuilder.Entity("budgetTracker.Models.User", b =>
